@@ -314,10 +314,10 @@ async function clearAssistantStatus(
 
 export function slackTreeStallMinutes(): number {
   // A negative threshold makes idleMin >= threshold true for every task
-  // (idle duration is never negative). Only positive integers are accepted.
+  // (idle duration is never negative). Only positive finite values are accepted.
   const raw = process.env.SLACK_TREE_STALL_MIN?.trim();
   const n = Number(raw);
-  return raw && Number.isInteger(n) && n > 0 ? n : 15;
+  return raw && Number.isFinite(n) && n > 0 ? n : 15;
 }
 
 function isStalledMember(task: AgentTask, now: Date): boolean {

@@ -335,6 +335,14 @@ the sweep's stale-session cleanup backstops leftover rows. With the flag off,
 boot cleanup keeps its legacy behavior (one process per agent, so every
 session of the agent is a dead predecessor's).
 
+### Slack tree stall indicator
+
+The Slack thread tree shows a stalled glyph for an `in_progress` task after
+`SLACK_TREE_STALL_MIN` minutes without an update, defaulting to 15 minutes.
+Positive finite values, including fractional minutes, are accepted. Unset,
+blank, zero, negative, nonnumeric, and non-finite values use the default.
+This display threshold does not change the heartbeat remediation thresholds.
+
 ## 2. The stalled-task classifier (`detectAndRemediateStalledTasks`)
 
 ```mermaid
