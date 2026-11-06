@@ -220,7 +220,9 @@ so status alone would leave it `active` forever and keep its agent falsely
 available. Liveness is therefore the conjunction of `status = 'active'` and a
 `last_seen_at` newer than `RUNTIME_STALE_THRESHOLD_MIN` (default 5 min, well
 above the worker's poll/ping traffic interval, so an idle-but-healthy worker
-is never expired):
+is never expired). Positive finite values, including fractional minutes, are
+accepted. Unset, blank, zero, negative, nonnumeric, and non-finite values use
+the 5-minute default:
 
 - `countActiveRuntimeInstancesForAgent` counts only live rows, so a surviving
   runtime's `/close` takes the agent offline immediately when its siblings are

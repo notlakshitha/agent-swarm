@@ -187,10 +187,10 @@ function rowToRuntimeInstance(row: RuntimeInstanceRow): RuntimeInstance {
  */
 export function runtimeStaleThresholdMinutes(): number {
   // A negative threshold puts the liveness cutoff in the future, so every
-  // recently-seen runtime looks stale. Only positive integers are accepted.
+  // recently-seen runtime looks stale. Only positive finite values are accepted.
   const raw = process.env.RUNTIME_STALE_THRESHOLD_MIN?.trim();
   const n = Number(raw);
-  return raw && Number.isInteger(n) && n > 0 ? n : 5;
+  return raw && Number.isFinite(n) && n > 0 ? n : 5;
 }
 
 function runtimeLivenessCutoff(): string {
