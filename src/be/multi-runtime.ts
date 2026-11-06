@@ -186,7 +186,11 @@ function rowToRuntimeInstance(row: RuntimeInstanceRow): RuntimeInstance {
  * the stalled-task classifier already uses.
  */
 export function runtimeStaleThresholdMinutes(): number {
-  return Number(process.env.RUNTIME_STALE_THRESHOLD_MIN) || 5;
+  // A negative threshold puts the liveness cutoff in the future, so every
+  // recently-seen runtime looks stale. Only positive integers are accepted.
+  const raw = process.env.RUNTIME_STALE_THRESHOLD_MIN?.trim();
+  const n = Number(raw);
+  return raw && Number.isInteger(n) && n > 0 ? n : 5;
 }
 
 function runtimeLivenessCutoff(): string {
